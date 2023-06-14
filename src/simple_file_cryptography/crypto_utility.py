@@ -40,6 +40,19 @@ def _decrypt_file(file_path_from: str, file_path_to: str, key: bytes):
 
 def encrypt_file(file_path_from: str, file_path_to: str, key: Union[bytes,
                                                                     str]):
+    """
+    Use this function to encrypt a file.
+    
+    Parameter `file_path_from` expects a string, representing
+    the path to the file you wish to encrypt.
+    
+    Parameter `file_path_to` expects a string, representing the
+    path to the file you wish to write to. This should end with `.enc`, but
+    it does not have to.
+
+    Parameter `key` expects a key, either in form of raw bytes or a
+    hexadecimal string, that represents those bytes.
+    """
     if type(key) is str:
         decoded_key = bytes.fromhex(key)
         _encrypt_file(file_path_from, file_path_to, decoded_key)
@@ -57,4 +70,9 @@ def decrypt_file(file_path_from: str, file_path_to: str, key: Union[bytes,
 
 
 def generate_key(size: int = 16) -> bytes:
+    """
+    A simple convenience function that will generate 16 random bytes (128 bits).
+    You may use `.hex()` method on received `bytes`, to get hexadecimal string
+    representation.
+    """
     return os.urandom(size)
