@@ -8,10 +8,10 @@ def _encrypt_file(file_path_from: str, file_path_to: str, key: bytes):
     cipher = Cipher(algorithms.AES(key), modes.CTR(nonce))
     encryptor = cipher.encryptor()
 
-    with open(file_path_to, 'wb') as file_to:
+    with open(file_path_to, 'wb', buffering=33554432) as file_to:
         file_to.write(nonce)
 
-        with open(file_path_from, 'rb') as file_from:
+        with open(file_path_from, 'rb', buffering=33554432) as file_from:
             while True:
                 piece = file_from.read(16)
                 file_to.write(encryptor.update(piece))
@@ -24,11 +24,11 @@ def _encrypt_file(file_path_from: str, file_path_to: str, key: bytes):
 
 def _decrypt_file(file_path_from: str, file_path_to: str, key: bytes):
 
-    with open(file_path_from, 'rb') as file_from:
+    with open(file_path_from, 'rb', buffering=33554432) as file_from:
         nonce = file_from.read(16)
         cipher = Cipher(algorithms.AES(key), modes.CTR(nonce))
         decryptor = cipher.decryptor()
-        with open(file_path_to, 'wb') as file_to:
+        with open(file_path_to, 'wb', buffering=33554432) as file_to:
             while True:
                 piece = file_from.read(16)
                 file_to.write(decryptor.update(piece))
