@@ -2,6 +2,7 @@ from simple_file_cryptography.crypto_utility import generate_key, decrypt_file, 
 import argparse
 import simple_file_cryptography.gui as gui
 
+
 def main():
     parser = argparse.ArgumentParser(
         prog='Simple file cryptography',

@@ -2,6 +2,7 @@ import os
 from typing import Union
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
+
 def _encrypt_file(file_path_from: str, file_path_to: str, key: bytes):
     nonce = os.urandom(16)
     cipher = Cipher(algorithms.AES(key), modes.CTR(nonce))
